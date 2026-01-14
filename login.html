@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8">
+  <title>ClayCare | Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+<img src="assets/Logo.png" alt="ClayCare Logo" style="height:60px;">
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <div class="icons">
+    <a href="cart.html">
+      <img src="assets/cart.png" alt="Cart">
+    </a>
+    <img src="assets/UseLogin.png" alt="Login">
+  </div>
+</header>
+
+<main class="login-container">
+
+  <h1 class="coming-title">Login to ClayCare</h1>
+
+  <div class="message-box login-box">
+    <p class="login-text">
+      Sign in securely using your Google account
+    </p>
+
+    <button class="google-login-btn" onclick="googleLogin()">
+      <img src="assets/gmail.png" alt="Google">
+      Continue with Google
+    </button>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="socials">
+    <a href="https://www.instagram.com/claycare_/" target="_blank">
+      <img src="assets/IG.jpg" alt="Instagram">
+    </a>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=claycare.help@gmail.com" target="_blank">
+      <img src="assets/gmail.png" alt="Gmail">
+    </a>
+  </div>
+  <p>© 2025 ClayCare. All Rights Reserved.</p>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXfJgQ8P7D-sOuu2DNeA3O5mIEhw2i1xs",
+    authDomain: "claycare-bfb6b.firebaseapp.com",
+    projectId: "claycare-bfb6b",
+    storageBucket: "claycare-bfb6b.firebasestorage.app",
+    messagingSenderId: "160759835778",
+    appId: "1:160759835778:web:49231b58d003a4e807989b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const db = getFirestore(app);
+
+  window.googleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        lastLogin: new Date()
+      });
+
+      window.location.href = "index.html";
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // Already logged in → redirect
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "index.html";
+    }
+  });
+</script>
+
+</body>
+</html>

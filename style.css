@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-image: url("assets/Background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: #6b4e3d;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.nav {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 10px 25px;
+  border-radius: 30px;
+}
+
+.nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #6b4e3d;
+  font-weight: 500;
+}
+
+.nav a.active {
+  text-decoration: underline;
+}
+
+.icons span {
+  margin-left: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Main content */
+.content {
+  max-width: 850px;
+  padding: 60px 40px;
+}
+
+.content h1 {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #b08a6a;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+.tagline {
+  font-style: italic;
+  margin-top: 25px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px;
+}
+
+.socials img {
+  width: 28px;
+  height: 28px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.socials img:hover {
+  transform: scale(1.1);
+}
+
+.footer p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* Logo image */
+.logo img {
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Header icons */
+.icons img {
+  height: 24px;
+  margin-left: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icons img:hover {
+  transform: scale(1.1);
+}
+
+.nav a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* Support Page */
+.support h2 {
+  font-size: 24px;
+  color: #b08a6a;
+  margin-bottom: 15px;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.support .email {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.notice {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.notice ul {
+  margin-left: 20px;
+  line-height: 1.8;
+}
+
+/* Products Page */
+.products-title {
+  font-size: 32px;
+  color: #b08a6a;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.products-box {
+  max-width: 520px;
+  background: rgba(216, 178, 145, 0.5);
+  padding: 30px;
+  border-radius: 25px;
+  line-height: 1.8;
+}
+
+.products-box p {
+  margin-bottom: 12px;
+}
+
+.products-box .heart {
+  margin-top: 10px;
+}

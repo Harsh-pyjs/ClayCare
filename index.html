@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8">
+  <title>ClayCare | About</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <!-- Logo Image -->
+  <div class="logo">
+<img src="assets/Logo.png" alt="ClayCare Logo" style="height:60px;">
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+<a class="active" href="https://claycare.vercel.app/">About</a>
+    <a href="https://claycare.vercel.app/product.html">Products</a>
+    <a href="https://claycare.vercel.app/support.html">Support</a>
+  </nav>
+
+  <!-- Icons -->
+<div class="icons">
+  <a href="./cart.html">
+    <img src="assets/cart.png" alt="Cart">
+  </a>
+
+<a href="./login.html">
+  <img src="assets/UseLogin.png" alt="User Login">
+</a>
+</div>
+</header>
+
+  <!-- Content -->
+  <main class="content">
+    <h1>About ClayCare</h1>
+
+    <p>
+      At <b>ClayCare</b>, we believe that true skincare begins with nature.
+      Our products are handcrafted using natural clay, plant-based oils,
+      and skin-loving ingredients that gently cleanse, nourish, and protect your skin.
+    </p>
+
+    <p>
+      Every ClayCare product is made with care, free from harsh chemicals,
+      and designed to suit all skin types. Our goal is to help you feel
+      confident in your natural glow.
+    </p>
+
+    <p>
+      Inspired by traditional skincare wisdom and refined with modern standards,
+      ClayCare brings you honest, earth-friendly solutions for healthier skin.
+    </p>
+
+    <p class="tagline">ClayCare — Naturally Pure. Gently Powerful.</p>
+  </main>
+
+  <!-- Footer --> 
+  <footer class="footer">
+<div class="socials">
+<a href="https://www.instagram.com/claycare_/" target="_blank">
+  <img src="assets/IG.jpg" alt="Instagram">
+</a>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=claycare.help@gmail.com" target="_blank">
+  <img src="assets/gmail.png" alt="Gmail">
+</a>
+</div>
+    <p>© 2025 ClayCare. All Rights Reserved.</p>
+  </footer>
+
+<script type="module">
+  // Firebase core
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+
+  // Auth (Google OAuth)
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+  // Firestore Database
+  import {
+    getFirestore,
+    doc,
+    setDoc
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+  // Your Firebase config (unchanged)
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXfJgQ8P7D-sOuu2DNeA3O5mIEhw2i1xs",
+    authDomain: "claycare-bfb6b.firebaseapp.com",
+    projectId: "claycare-bfb6b",
+    storageBucket: "claycare-bfb6b.firebasestorage.app",
+    messagingSenderId: "160759835778",
+    appId: "1:160759835778:web:49231b58d003a4e807989b",
+    measurementId: "G-ZZPDDL218N"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const db = getFirestore(app);
+
+  // Google Login
+  window.googleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Save user to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        lastLogin: new Date()
+      });
+
+      alert("Welcome " + user.displayName);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  // Logout
+  window.logout = async () => {
+    await signOut(auth);
+    alert("Logged out");
+  };
+
+  // Keep user logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("User logged in:", user.email);
+    } else {
+      console.log("User not logged in");
+    }
+  });
+</script>
+</body>
+</html>
