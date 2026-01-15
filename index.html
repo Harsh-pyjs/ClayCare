@@ -27,9 +27,18 @@
     <img src="assets/cart.png" alt="Cart">
   </a>
 
-<a href="./login.html">
-  <img src="assets/UseLogin.png" alt="User Login">
-</a>
+  <!-- LOGIN ICON -->
+  <a id="loginBtn" href="./login.html">
+    <img src="assets/UseLogin.png" alt="Login">
+  </a>
+
+  <!-- USER ICON -->
+  <div id="userBox" style="display:none; position:relative;">
+    <img id="userIcon" src="assets/UseLogin.png" alt="User">
+
+    <!-- LOGOUT BUTTON -->
+    <button id="logoutBtn">Logout</button>
+  </div>
 </div>
 </header>
 
@@ -70,77 +79,59 @@
     <p>© 2025 ClayCare. All Rights Reserved.</p>
   </footer>
 
-<script type="module">
-  // Firebase core
+  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-
-  // Auth (Google OAuth)
   import {
     getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut
   } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-  // Firestore Database
-  import {
-    getFirestore,
-    doc,
-    setDoc
-  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-  // Your Firebase config (unchanged)
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAXfJgQ8P7D-sOuu2DNeA3O5mIEhw2i1xs",
     authDomain: "claycare-bfb6b.firebaseapp.com",
     projectId: "claycare-bfb6b",
     storageBucket: "claycare-bfb6b.firebasestorage.app",
     messagingSenderId: "160759835778",
-    appId: "1:160759835778:web:49231b58d003a4e807989b",
-    measurementId: "G-ZZPDDL218N"
+    appId: "1:160759835778:web:49231b58d003a4e807989b"
   };
 
-  // Initialize Firebase
+  // Init Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  const db = getFirestore(app);
 
-  // Google Login
-  window.googleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+  // UI Elements
+  const loginBtn = document.getElementById("loginBtn");
+  const userBox = document.getElementById("userBox");
+  const userIcon = document.getElementById("userIcon");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-      // Save user to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        lastLogin: new Date()
-      });
-
-      alert("Welcome " + user.displayName);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  // Logout
-  window.logout = async () => {
-    await signOut(auth);
-    alert("Logged out");
-  };
-
-  // Keep user logged in
+  // Auth state listener
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log("User logged in:", user.email);
+      loginBtn.style.display = "none";
+      userBox.style.display = "inline-block";
     } else {
-      console.log("User not logged in");
+      loginBtn.style.display = "inline-block";
+      userBox.style.display = "none";
+      logoutBtn.style.display = "none";
     }
   });
+
+  // Toggle logout button
+  userIcon.addEventListener("click", () => {
+    logoutBtn.style.display =
+      logoutBtn.style.display === "block" ? "none" : "block";
+  });
+
+  // Logout
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    logoutBtn.style.display = "none";
+    window.location.href = "index.html";
+  });
 </script>
+
 </body>
 </html>

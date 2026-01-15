@@ -139,3 +139,21 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
+
+#logoutBtn {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+
+#logoutBtn:hover {
+  background: #c9302c;
+}

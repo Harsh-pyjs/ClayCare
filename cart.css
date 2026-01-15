@@ -105,3 +105,21 @@ body {
   margin-top: 15px;
   font-size: 14px;
 }
+
+#logoutBtn {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+
+#logoutBtn:hover {
+  background: #c9302c;
+}
